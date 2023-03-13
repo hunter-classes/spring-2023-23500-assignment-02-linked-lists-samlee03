@@ -7,6 +7,9 @@ int main(){
 
     OList *ol = new OList();
 
+    // std::cout << ol->toString() <<  " "  <<  std::endl;
+    std::cout << "--- Ordered List ---\n";
+    std::cout << "Before Reverse:\n";
     ol->insert("test");
     ol->insert("choc");
     ol->insert("zed");
@@ -14,34 +17,20 @@ int main(){
     ol->insert("delphine");
     ol->insert("octopus");
     ol->insert("anticipate");
-    // ol->insert("zz");
-    // if ("zed" < "test"){
-    //     std::cout << "less than\n";
-    // }
-    std::cout << ol->toString() <<  " " << ol->contains("test") <<  std::endl;
+    ol->insert("zz");
 
-    // std::cout << ol->get(3) << std::endl;
-    // ol->remove(3);
+    std::cout << ol->toString() <<  " " <<  std::endl;
+    std::cout << "Getting Index 1 Element: " << ol->get(1) << std::endl;
+    std::cout << "Contains zed: " << ol->contains("zed") << std::endl;
+    std::cout << "Removing Index 2 Element\n";
+    ol->remove(2);
+    std::cout << ol->toString() <<  " " <<  std::endl;
+
+    std::cout << "Reversed:\n";
     ol->reverse();
-    std::cout << ol->toString() <<  " " << ol->contains("test") <<  std::endl;
+    std::cout << ol->toString() <<  " " <<  std::endl;
+    
+    delete ol;
 
-
-    // std::cout << l->toString() << " " << l->length() <<  "\n";
-    // l->insert(0, "data1");
-    // std::cout << l->toString() << " " << l->length() <<  "\n";
-    // l->insert(1, "data2");
-    // std::cout << l->toString() << " " << l->length() <<  "\n";
-    // std::cout << l->contains("data2") << "\n";
-    // l->remove(1);
-    // std::cout << l->toString() << " " << l->length() <<  "\n";
-    // std::string str1, str2;
-    // str1 = "a";
-    // str2 = "b";
-
-    // if (str1 < str2){
-    //     std::cout << "a is smaller than b" << std::endl;
-    // } else {
-    //     std::cout << "b is smaller than a" << std::endl;
-    // }
     return 0;
 }

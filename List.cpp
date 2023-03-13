@@ -9,7 +9,16 @@ List::List(){
 
 
 List::~List(){
-    delete head; // Delete head to release data?
+    //delete head; // Delete head to release data?
+    Node *walker = head;
+    Node *trailer = nullptr;
+    while (walker != nullptr){
+        trailer = walker;
+        walker = walker->getNext();
+        delete trailer;
+        trailer = nullptr;
+    }
+    std::cout << head << "\n";
 }
 
 void List::insert(std::string data){
@@ -35,6 +44,7 @@ void List::insert(int loc, std::string data){
     Node *newNode = new Node(data);
 
     if (trailer == nullptr){
+        // std::cout << "This runs";
         newNode->setNext(head);
         head = newNode;
     } else {
@@ -54,8 +64,20 @@ void List::remove(int loc){
         trailer = walker;
         walker = walker->getNext();
     }
-    trailer->setNext(walker->getNext());
-
+    if (walker == nullptr){
+        throw std::out_of_range("Tried to remove out of range"); 
+    }
+    if (trailer == nullptr){
+        //removing the first item in the list
+        head = walker->getNext();
+        delete walker;
+        walker = nullptr;
+    } else {
+        //general case
+        trailer ->setNext(walker->getNext());
+        delete walker;
+        walker = nullptr;
+    }
 }
 
 int List::length(){

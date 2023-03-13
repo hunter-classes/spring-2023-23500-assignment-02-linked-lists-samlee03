@@ -7,7 +7,16 @@ OList::OList(){
 }
 
 OList::~OList(){
-    head = nullptr;
+    Node *walker, *trailer;
+    walker = this->head;
+    trailer = nullptr;
+    while (walker != nullptr){
+        trailer = walker;
+        walker = walker->getNext();
+        delete trailer;
+        trailer = nullptr;
+    }
+    // std::cout << "\nData has been deleted\n";
 }
 
 void OList::insert(std::string value){
@@ -18,29 +27,19 @@ void OList::insert(std::string value){
     // return;
     Node *newNode = new Node(value);
     if (head == nullptr){ // First Item
-        // head->setNext(newNode);
         newNode->setNext(head);
         head = newNode;
         return;
     }
 
-    // if (trailer == nullptr){
-    //     newNode->setNext(head);
-    //     head->setNext(newNode);
-    // }
-
     while (walker != nullptr){
-        // std::cout << "This runs";
         if ((newNode->getData() < walker->getData()) && trailer == nullptr){ // Less than first item
             newNode->setNext(walker);
             head = newNode;
             return;
         }
 
-        // if (trailer == nullptr && (newNode->getData() < walker->getData())){
-        //     newNode->setNext(head);
-        //     head->setNext(newNode);
-        // }
+
         if (trailer != nullptr && (newNode->getData() < walker->getData())){
             trailer->setNext(newNode);
             newNode->setNext(walker);
@@ -49,12 +48,10 @@ void OList::insert(std::string value){
 
         trailer = walker;
         walker = walker->getNext();
-        // return;
     }
     trailer->setNext(newNode);
     newNode->setNext(walker);
-    // newNode->setNext(head);
-    // head = newNode;
+
     return;
 }
 
@@ -83,11 +80,8 @@ bool OList::contains(std::string value){
 
 std::string OList::get(int loc){
     Node *walker = this->head;
-    // trailer = nullptr;
     
-    // int c = loc;
     while (loc > 0){
-        // trailer = walker;
         walker = walker->getNext();
         loc--;
     }
@@ -127,11 +121,22 @@ void OList::reverse(){
     walker = this->head;
     trailer = nullptr;
     // Find last element
+
+    if (walker == nullptr || walker->getNext() == nullptr ){ // (CASE) Nothing to reverse
+        return;
+    }
     while (walker->getNext() != nullptr){ // walker points to last element
         trailer = walker;
         walker = walker->getNext();   
     }
+
     this->head = walker; // New Head
+
+    if (tmp == trailer){ // (CASE) Two Elements to Reverse 
+        walker->setNext(trailer);
+        trailer->setNext(nullptr);
+        return;
+    }
 
     while (tmp->getNext() != trailer){ // Last set of switch
         walker->setNext(trailer);
@@ -147,11 +152,6 @@ void OList::reverse(){
     walker->setNext(trailer);
     trailer->setNext(tmp);
     tmp->setNext(nullptr);
-    // walker->setNext(trailer);
-
-    // Manipulate pointers
-    // walker = trailer;
-    // trailer
     
     return;
 }

@@ -8,6 +8,7 @@ class OList {
     public:
         OList();
         ~OList();
+        // bool isHeadNull();
         void insert(std::string value);
         std::string toString();
         bool contains(std::string value);
